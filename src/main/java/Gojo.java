@@ -2,18 +2,71 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Gojo {
-    public static void printList(List<String> listItems) {
+    public static void printList(List<Task> listItems) {
         int index = 0;
         System.out.println("____________________________________________________________");
-        for (String items : listItems) {
-            System.out.println((index + 1) + ". " + items);
+        for (Task items : listItems) {
+            System.out.print((index + 1) + ". ");
+            System.out.print("[" + items.getStatusIcon() + "] ");
+            System.out.println(items.getDescription());
             index++;
         }
         System.out.println("____________________________________________________________");
     }
+
+    public static void markAsDone(List<Task> list, String line) {
+        int index = line.indexOf(" ");
+        String number = line.substring(index + 1);
+        int num = Integer.parseInt(number) - 1;
+
+        if (num >= list.size() || num < 0 || list.get(num).getStatus()) {
+            return;
+        }
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Awesome! Task marked as completed:");
+        list.get(num).markAsDone();
+        System.out.println("[" + list.get(num).getStatusIcon() + "] " + list.get(num).getDescription());
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void unmarkAsDone(List<Task> list, String line) {
+        int index = line.indexOf(" ");
+        String number = line.substring(index + 1);
+        int num = Integer.parseInt(number) - 1;
+
+        if (num >= list.size() || num < 0 || !list.get(num).getStatus()) {
+            return;
+        }
+
+        System.out.println("____________________________________________________________");
+        System.out.println("Okay, I've marked this as not done yet. Guess even perfection takes a little time huh?:");
+        list.get(num).unmarkAsDone();
+        System.out.println("[" + list.get(num).getStatusIcon() + "] " + list.get(num).getDescription());
+        System.out.println("____________________________________________________________");
+    }
+
+    public static boolean findMark(String[] words) {
+        for (String word : words) {
+            if (word.equals("mark")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean findUnmark(String[] words) {
+        for (String word : words) {
+            if (word.equals("unmark")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         String line;
-        List<String> listItems = new ArrayList<>();
+        List<Task> listItems = new ArrayList<>();
         Scanner in = new Scanner(System.in);
 
         System.out.println("____________________________________________________________");
@@ -23,6 +76,7 @@ public class Gojo {
 
         while(true) {
             line = in.nextLine();
+
             if (line.equals("bye")) {
                 break;
             }
@@ -30,9 +84,21 @@ public class Gojo {
                 printList(listItems);
                 continue;
             }
+
+            String[] words = line.split(" ");
+            if (findMark(words)) {
+                markAsDone(listItems, line);
+                continue;
+            }
+            if (findUnmark(words)) {
+                unmarkAsDone(listItems, line);
+                continue;
+            }
+
+            Task task = new Task(line);
             System.out.println("____________________________________________________________");
             System.out.println("added: " + line);
-            listItems.add(line);
+            listItems.add(task);
             System.out.println("____________________________________________________________");
         }
         System.out.println("Bye! Don't miss me too much, okay?");
