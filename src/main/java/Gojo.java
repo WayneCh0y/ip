@@ -5,6 +5,7 @@ public class Gojo {
     public static void printList(List<Task> listItems) {
         int index = 0;
         System.out.println("____________________________________________________________");
+        System.out.println("Alright, here's the lineup of tasks on your list! Let's breeze through them.");
         for (Task items : listItems) {
             System.out.print((index + 1) + ". ");
             System.out.print("[" + items.getStatusIcon() + "] ");
