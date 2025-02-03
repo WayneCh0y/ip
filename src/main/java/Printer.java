@@ -19,18 +19,6 @@ public class Printer {
         System.out.println(LINE_SEPARATER);
     }
 
-    public static void printList(List<Task> listItems) {
-        int index = 0;
-        printLine();
-        System.out.println("Alright, here's the lineup of tasks on your list! Let's breeze through them.");
-        for (Task items : listItems) {
-            printIndexNumber(index);
-            printEntry(items);
-            index++;
-        }
-        printLine();
-    }
-
     public static void printIndexNumber(int index) {
         System.out.print((index + 1) + ". ");
     }
@@ -39,27 +27,25 @@ public class Printer {
         System.out.println(list);
     }
 
-    public static void printMarkResult(List<Task> list, int numToMark) {
+    public static void printMarkResult(Task task) {
         printLine();
         System.out.println("Awesome! Task marked as completed:");
-        printEntry(list.get(numToMark));
+        printEntry(task);
         printLine();
     }
 
-    public static void printUnmarkResult(List<Task> list, int num) {
+    public static void printUnmarkResult(Task task) {
         printLine();
         System.out.println("Okay, I've marked this as not done yet. Guess even perfection takes a little time huh?:");
-        list.get(num).unmarkAsDone();
-        printEntry(list.get(num));
+        printEntry(task);
         printLine();
     }
 
-    public static void printTaskAdded(List<Task> listItems, Task eventTask) {
+    public static void printTaskAdded(int listSize, Task eventTask) {
         Printer.printLine();
         System.out.println("Got it! Task added.");
         System.out.println(eventTask);
-        listItems.add(eventTask);
-        System.out.println("Now you have " + listItems.size() + " tasks in the list.");
+        System.out.println("Now you have " + listSize + " tasks in the list.");
         Printer.printLine();
     }
 }
