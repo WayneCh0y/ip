@@ -1,7 +1,5 @@
-import java.util.List;
-
 public class Printer {
-    private static final String LINE_SEPARATER = "____________________________________________________________";
+    private static final String LINE_SEPARATOR = "____________________________________________________________";
 
     public static void chatbotGreeting() {
         printLine();
@@ -16,15 +14,15 @@ public class Printer {
     }
 
     public static void printLine() {
-        System.out.println(LINE_SEPARATER);
+        System.out.println(LINE_SEPARATOR);
     }
 
     public static void printIndexNumber(int index) {
         System.out.print((index + 1) + ". ");
     }
 
-    public static void printEntry(Task list) {
-        System.out.println(list);
+    public static void printEntry(Task task) {
+        System.out.println(task);
     }
 
     public static void printMarkResult(Task task) {
@@ -41,10 +39,10 @@ public class Printer {
         printLine();
     }
 
-    public static void printTaskAdded(int listSize, Task eventTask) {
+    public static void printTaskAdded(int listSize, Task task) {
         Printer.printLine();
         System.out.println("Got it! Task added.");
-        System.out.println(eventTask);
+        System.out.println(task);
         System.out.println("Now you have " + listSize + " tasks in the list.");
         Printer.printLine();
     }

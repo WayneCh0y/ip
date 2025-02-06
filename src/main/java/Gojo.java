@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Gojo {
 
-    private static String getTaskType(String line, Scanner in) {
+    private static String getTaskType(String line) {
         return (line.split(" ", 2))[0];
     }
 
@@ -10,27 +10,30 @@ public class Gojo {
         String line;
         while(true) {
             line = in.nextLine();
-            String taskType = getTaskType(line, in);
+            String taskType = getTaskType(line);
             switch (taskType) {
             case "bye":
                 return;
             case "list":
                 taskManager.printTaskList();
-                continue;
+                break;
             case "todo":
                 taskManager.todo(line);
-                continue;
+                break;
             case "deadline":
                 taskManager.deadline(line);
-                continue;
+                break;
             case "event":
                 taskManager.event(line);
-                continue;
+                break;
             case "mark":
                 taskManager.mark(line);
-                continue;
+                break;
             case "unmark":
                 taskManager.unmark(line);
+                break;
+            default:
+                System.out.println("Eh? Sorry, but that’s a little above my head. Mind explaining again?");
             }
         }
     }
