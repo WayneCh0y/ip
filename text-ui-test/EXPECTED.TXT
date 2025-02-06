@@ -1,7 +1,27 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hey there! The name's Gojo. The strongest sorcerer you'll ever meet.
+What can I do for you?
+____________________________________________________________
+todo borrow book
+____________________________________________________________
+Got it! Task added.
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+list
+____________________________________________________________
+Alright, here's the lineup of tasks on your list! Let's breeze through them.
+1. [T][ ] borrow book
+____________________________________________________________
+deadline return book /by Sunday
+____________________________________________________________
+Got it! Task added.
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+event project meeting /from Mon 2pm /to 4pm
+____________________________________________________________
+Got it! Task added.
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
