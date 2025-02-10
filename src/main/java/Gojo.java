@@ -33,7 +33,7 @@ public class Gojo {
                 taskManager.unmark(line);
                 break;
             default:
-                System.out.println("Eh? Sorry, but that’s a little above my head. Mind explaining again?");
+                System.out.println("OOPS~! You've officially confused even me! Try again, maybe with actual commands?");
             }
         }
     }

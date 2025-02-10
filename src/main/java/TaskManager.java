@@ -4,59 +4,77 @@ import java.util.List;
 public class TaskManager {
     private static List<Task> taskList;
 
-    private static boolean isValidTodoCommand(String command) {
-        String[] words = command.split(" ", 2);
-        return words.length > 1;
-    }
-
-    private static boolean isValidDeadlineCommand(String command) {
+    private static void isValidDeadlineCommand(String command) throws IllegalCommandException{
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
-            return false;
+            throw new IllegalCommandException();
         }
-        String[] deadlineCommand = words[1].split("\\s*/by\\s*");
-        return deadlineCommand.length > 1;
+        if (words[1].split("\\s*/by\\s*").length < 2) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
-    private static boolean isValidEventCommand(String command) {
+    private static void isValidEventCommand(String command) throws IllegalCommandException{
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
-            return false;
+            throw new IllegalCommandException();
         }
-        String[] eventCommand = words[1].split("\\s*/from\\s*|\\s*/to\\s*");
-        return eventCommand.length > 2;
+        if (words[1].split("\\s*/from\\s*|\\s*/to\\s*").length < 3) {
+            throw new Error();
+        }
     }
 
-    private static boolean isValidMarkCommand(String command) {
+    private static void isValidMarkCommand(String command) throws IllegalCommandException{
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
-            return false;
+            throw new IllegalCommandException();
         }
-        int numberToMark = Integer.parseInt(words[1]);
+
+        int numberToMark = 0;
+
+        try {
+            numberToMark = Integer.parseInt(words[1]);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+
         int indexToMark = numberToMark - 1;
-        return numberToMark <= taskList.size() && numberToMark > 0 && !taskList.get(indexToMark).getStatus();
+
+        if (numberToMark > taskList.size() || numberToMark <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (taskList.get(indexToMark).getStatus()) {
+            throw new Error();
+        }
     }
 
-    private static boolean isValidUnmarkCommand(String command) {
+    private static void isValidUnmarkCommand(String command) throws IllegalCommandException{
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
-            return false;
+            throw new IllegalCommandException();
         }
-        int numberToMark = Integer.parseInt(words[1]);
+
+        int numberToMark = 0;
+
+        try {
+            numberToMark = Integer.parseInt(words[1]);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+
         int indexToMark = numberToMark - 1;
-        return numberToMark <= taskList.size() && numberToMark > 0 && taskList.get(indexToMark).getStatus();
+        if (numberToMark > taskList.size() || numberToMark <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (!taskList.get(indexToMark).getStatus()) {
+            throw new Error();
+        }
     }
 
     public TaskManager() {
         taskList = new ArrayList<>();
-    }
-
-    public static List<Task> getList() {
-        return taskList;
-    }
-
-    public static Task getTaskAtIndex(int index) {
-        return taskList.get(index);
     }
 
     public static int getListSize() {
@@ -78,20 +96,28 @@ public class TaskManager {
     }
 
     public static void todo(String line) {
-        if (!isValidTodoCommand(line)) {
-            return;
+        try {
+            String[] split = line.split(" ", 2);
+            String taskDescription = split[1];
+            Task todoTask = new Todo(taskDescription);
+            taskList.add(todoTask);
+            Printer.printTaskAdded(getListSize(), todoTask);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Oops~! Looks like you forgot something important. A Todo without a description?");
         }
-        String[] split = line.split(" ", 2);
-        String taskDescription = split[1];
-        Task todoTask = new Todo(taskDescription);
-        taskList.add(todoTask);
-        Printer.printTaskAdded(getListSize(), todoTask);
     }
 
     public static void deadline(String line) {
-        if (!isValidDeadlineCommand(line)) {
+        try {
+            isValidDeadlineCommand(line);
+        } catch (IllegalCommandException e) {
+            System.out.println("A deadline without a description? Is this a secret mission?");
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Hey hey~! Don't forget to set the deadline okay?");
             return;
         }
+
         String[] split = line.split(" ", 2);
         String[] deadlineSpecifics = split[1].split("\\s*/by\\s*");
         Task deadlineTask = new Deadline(deadlineSpecifics[0], deadlineSpecifics[1]);
@@ -100,9 +126,16 @@ public class TaskManager {
     }
 
     public static void event(String line) {
-        if (!isValidEventCommand(line)) {
+        try {
+            isValidEventCommand(line);
+        } catch(IllegalCommandException e) {
+            System.out.println("What is this? An event with no details?");
+            return;
+        } catch (Error e) {
+            System.out.println("Is this event happening today, tomorrow, or in the next century?");
             return;
         }
+
         String[] split = line.split(" ", 2);
         String[] eventSpecifics = split[1].split("\\s*/from\\s*|\\s*/to\\s*");
         Task eventTask = new Event(eventSpecifics[0], eventSpecifics[1], eventSpecifics[2]);
@@ -111,7 +144,19 @@ public class TaskManager {
     }
 
     public static void mark(String line) {
-        if (!isValidMarkCommand(line)) {
+        try {
+            isValidMarkCommand(line);
+        } catch (IllegalCommandException e) {
+            System.out.println("Uh-oh~! You want me to mark something as done, but... what exactly?");
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Huh? That task is not even on the list! Are you seeing things?");
+            return;
+        } catch (Error e) {
+            System.out.println("Eh? That task is already done! Trying to get extra credit?");
+            return;
+        } catch (RuntimeException e) {
+            System.out.println("Uh... am i supposed to use limitless to figure this out?");
             return;
         }
         String[] split = line.split(" ", 2);
@@ -122,7 +167,19 @@ public class TaskManager {
     }
 
     public static void unmark(String line) {
-        if (!isValidUnmarkCommand(line)) {
+        try {
+            isValidUnmarkCommand(line);
+        } catch (IllegalCommandException e) {
+            System.out.println("Woah there~! What am I supposed to unmark here?");
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Huh? That task is not even on the list! Are you seeing things?");
+            return;
+        } catch (Error e) {
+            System.out.println("Eh? That task isn't even done! Trying to reverse nothing now?");
+            return;
+        } catch (RuntimeException e) {
+            System.out.println("Huh? You want me to unmark... whatever that is?");
             return;
         }
         String[] split = line.split(" ", 2);
