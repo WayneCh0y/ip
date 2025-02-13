@@ -1,3 +1,5 @@
+import TaskItems.Task;
+
 public class Printer {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
