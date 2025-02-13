@@ -1,3 +1,6 @@
+package Managers;
+
+import Managers.Exceptions.IllegalCommandException;
 import TaskItems.Deadline;
 import TaskItems.Event;
 import TaskItems.Task;
@@ -9,7 +12,7 @@ import java.util.List;
 public class TaskManager {
     private static List<Task> taskList;
 
-    private static void isValidDeadlineCommand(String command) throws IllegalCommandException{
+    private static void isValidDeadlineCommand(String command) throws IllegalCommandException {
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalCommandException();
@@ -19,7 +22,7 @@ public class TaskManager {
         }
     }
 
-    private static void isValidEventCommand(String command) throws IllegalCommandException{
+    private static void isValidEventCommand(String command) throws IllegalCommandException {
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalCommandException();
@@ -29,7 +32,7 @@ public class TaskManager {
         }
     }
 
-    private static void isValidMarkCommand(String command) throws IllegalCommandException{
+    private static void isValidMarkCommand(String command) throws IllegalCommandException {
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalCommandException();
@@ -54,7 +57,7 @@ public class TaskManager {
         }
     }
 
-    private static void isValidUnmarkCommand(String command) throws IllegalCommandException{
+    private static void isValidUnmarkCommand(String command) throws IllegalCommandException {
         String[] words = command.split(" ", 2);
         if (words.length < 2) {
             throw new IllegalCommandException();

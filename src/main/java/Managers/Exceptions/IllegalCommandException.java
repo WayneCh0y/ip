@@ -1,4 +1,4 @@
-package Managers;
+package Managers.Exceptions;
 
 public class IllegalCommandException extends Exception{
 }
