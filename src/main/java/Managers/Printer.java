@@ -31,7 +31,7 @@ public class Printer {
 
     public static void printMarkResult(Task task) {
         printLine();
-        System.out.println("Awesome! Task marked as completed:");
+        System.out.println("Easy! Task marked as completed:");
         printEntry(task);
         printLine();
     }
