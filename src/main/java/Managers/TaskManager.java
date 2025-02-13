@@ -38,7 +38,7 @@ public class TaskManager {
             throw new IllegalCommandException();
         }
 
-        int numberToMark = 0;
+        int numberToMark;
 
         try {
             numberToMark = Integer.parseInt(words[1]);
@@ -63,7 +63,7 @@ public class TaskManager {
             throw new IllegalCommandException();
         }
 
-        int numberToMark = 0;
+        int numberToMark;
 
         try {
             numberToMark = Integer.parseInt(words[1]);
