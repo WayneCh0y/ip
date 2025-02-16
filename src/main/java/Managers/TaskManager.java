@@ -11,20 +11,22 @@ import java.util.List;
 
 public class TaskManager {
     private static List<Task> taskList;
+    private static int MIN_WORD_LEN = 2;
+
 
     private static void isValidDeadlineCommand(String command) throws IllegalCommandException {
-        String[] words = command.split(" ", 2);
-        if (words.length < 2) {
+        String[] words = command.split(" ", MIN_WORD_LEN);
+        if (words.length < MIN_WORD_LEN) {
             throw new IllegalCommandException();
         }
-        if (words[1].split("\\s*/by\\s*").length < 2) {
+        if (words[1].split("\\s*/by\\s*").length < MIN_WORD_LEN) {
             throw new IndexOutOfBoundsException();
         }
     }
 
     private static void isValidEventCommand(String command) throws IllegalCommandException {
-        String[] words = command.split(" ", 2);
-        if (words.length < 2) {
+        String[] words = command.split(" ", MIN_WORD_LEN);
+        if (words.length < MIN_WORD_LEN) {
             throw new IllegalCommandException();
         }
         if (words[1].split("\\s*/from\\s*|\\s*/to\\s*").length < 3) {
@@ -33,8 +35,8 @@ public class TaskManager {
     }
 
     private static void isValidMarkCommand(String command) throws IllegalCommandException {
-        String[] words = command.split(" ", 2);
-        if (words.length < 2) {
+        String[] words = command.split(" ", MIN_WORD_LEN);
+        if (words.length < MIN_WORD_LEN) {
             throw new IllegalCommandException();
         }
 
@@ -58,8 +60,8 @@ public class TaskManager {
     }
 
     private static void isValidUnmarkCommand(String command) throws IllegalCommandException {
-        String[] words = command.split(" ", 2);
-        if (words.length < 2) {
+        String[] words = command.split(" ", MIN_WORD_LEN);
+        if (words.length < MIN_WORD_LEN) {
             throw new IllegalCommandException();
         }
 
@@ -105,7 +107,7 @@ public class TaskManager {
 
     public static void todo(String line) {
         try {
-            String[] split = line.split(" ", 2);
+            String[] split = line.split(" ", MIN_WORD_LEN);
             String taskDescription = split[1];
             Task todoTask = new Todo(taskDescription);
             taskList.add(todoTask);
@@ -126,7 +128,7 @@ public class TaskManager {
             return;
         }
 
-        String[] split = line.split(" ", 2);
+        String[] split = line.split(" ", MIN_WORD_LEN);
         String[] deadlineSpecifics = split[1].split("\\s*/by\\s*");
         Task deadlineTask = new Deadline(deadlineSpecifics[0], deadlineSpecifics[1]);
         taskList.add(deadlineTask);
@@ -144,7 +146,7 @@ public class TaskManager {
             return;
         }
 
-        String[] split = line.split(" ", 2);
+        String[] split = line.split(" ", MIN_WORD_LEN);
         String[] eventSpecifics = split[1].split("\\s*/from\\s*|\\s*/to\\s*");
         Task eventTask = new Event(eventSpecifics[0], eventSpecifics[1], eventSpecifics[2]);
         taskList.add(eventTask);
@@ -167,7 +169,7 @@ public class TaskManager {
             System.out.println("Uh... am i supposed to use limitless to figure this out?");
             return;
         }
-        String[] split = line.split(" ", 2);
+        String[] split = line.split(" ", MIN_WORD_LEN);
         int numberToMark = Integer.parseInt(split[1]);
         int indexToMark = numberToMark - 1;
         taskList.get(indexToMark).markAsDone();
@@ -190,7 +192,7 @@ public class TaskManager {
             System.out.println("Huh? You want me to unmark... whatever that is?");
             return;
         }
-        String[] split = line.split(" ", 2);
+        String[] split = line.split(" ", MIN_WORD_LEN);
         int numberToUnmark = Integer.parseInt(split[1]);
         int indexToUnmark = numberToUnmark - 1;
         taskList.get(indexToUnmark).unmarkAsDone();
