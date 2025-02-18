@@ -2,6 +2,7 @@ import Managers.Printer;
 import Managers.TaskManager;
 
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Gojo {
 
@@ -35,17 +36,21 @@ public class Gojo {
             case "unmark":
                 taskManager.unmark(line);
                 break;
+            case "delete":
+                taskManager.delete(line);
+                break;
             default:
                 System.out.println("OOPS~! You've officially confused even me! Try again, maybe with actual commands?");
             }
         }
     }
 
-    public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+    public static void main(String[] args) throws IOException {
+        TaskManager taskManager = FileManager.load();
         Scanner in = new Scanner(System.in);
         Printer.chatbotGreeting();
         start(in, taskManager);
         Printer.end();
+        FileManager.save(TaskManager.getTaskList());
     }
 }

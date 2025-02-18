@@ -1,0 +1,3 @@
+[T]|run|false
+[D]|do work|tmr|false
+[E]|attend wedding|tuesday|night|true

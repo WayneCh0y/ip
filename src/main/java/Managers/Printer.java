@@ -2,6 +2,8 @@ package Managers;
 
 import TaskItems.Task;
 
+import java.util.List;
+
 public class Printer {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
@@ -47,7 +49,34 @@ public class Printer {
         Printer.printLine();
         System.out.println("Got it! Task added.");
         System.out.println(task);
+        printListSize(listSize);
+        Printer.printLine();
+    }
+
+    private static void printListSize(int listSize) {
         System.out.println("Now you have " + listSize + " tasks in the list.");
+    }
+
+    public static void printTaskList(List<Task> taskList) {
+        int index = 0;
+        Printer.printLine();
+        System.out.println("Alright, here's the lineup of tasks on your list! Let's breeze through them.");
+
+        for (Task task : taskList) {
+            Printer.printIndexNumber(index);
+            Printer.printEntry(task);
+            index++;
+        }
+
+        Printer.printLine();
+    }
+
+    public static void printDeleteResult(List<Task> taskList, Task task) {
+        int index = 0;
+        Printer.printLine();
+        System.out.println("Ah, I see what you did there! Was that a sneaky Gojo-style move to make the task disappear?");
+        printEntry(task);
+        printListSize(taskList.size());
         Printer.printLine();
     }
 }

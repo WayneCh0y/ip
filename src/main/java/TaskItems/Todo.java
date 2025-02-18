@@ -7,6 +7,18 @@ public class Todo extends Task {
         super(description);
     }
 
+    public String getTaskType() {
+        return TASK_TYPE;
+    }
+
+    public String getDescription() {
+        return super.getDescription();
+    }
+
+    public String getSaveDescription() {
+        return getDescription();
+    }
+
     @Override
     public String toString() {
         return TASK_TYPE + super.toString();

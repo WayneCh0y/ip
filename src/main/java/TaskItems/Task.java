@@ -3,6 +3,7 @@ package TaskItems;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     public Task(String description) {
         this.description = description;
@@ -19,6 +20,14 @@ public class Task {
 
     public String getDescription() {
       return this.description;
+    }
+
+    public String getSaveDescription() {
+        return getDescription();
+    }
+
+    public String getTaskType() {
+        return this.taskType;
     }
 
     public void markAsDone() {

@@ -83,6 +83,24 @@ public class TaskManager {
         }
     }
 
+    public static void isValidDeleteCommand(String command) throws IllegalCommandException {
+        String[] words = command.split(" ", MIN_WORD_LEN);
+        if (words.length < MIN_WORD_LEN) {
+            throw new IllegalCommandException();
+        }
+
+        int numberToDelete;
+
+        try {
+            numberToDelete = Integer.parseInt(words[1]);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+        if (numberToDelete > taskList.size() || numberToDelete <= 0) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
     public TaskManager() {
         taskList = new ArrayList<>();
     }
@@ -91,18 +109,12 @@ public class TaskManager {
         return taskList.size();
     }
 
+    public static List<Task> getTaskList() {
+        return taskList;
+    }
+
     public static void printTaskList() {
-        int index = 0;
-        Printer.printLine();
-        System.out.println("Alright, here's the lineup of tasks on your list! Let's breeze through them.");
-
-        for (Task task : taskList) {
-            Printer.printIndexNumber(index);
-            Printer.printEntry(task);
-            index++;
-        }
-
-        Printer.printLine();
+        Printer.printTaskList(taskList);
     }
 
     public static void todo(String line) {
@@ -197,5 +209,30 @@ public class TaskManager {
         int indexToUnmark = numberToUnmark - 1;
         taskList.get(indexToUnmark).unmarkAsDone();
         Printer.printUnmarkResult(taskList.get(indexToUnmark));
+    }
+
+    public static void delete(String line) {
+        try {
+            isValidDeleteCommand(line);
+        } catch (IllegalCommandException e) {
+            System.out.println("Are you trying to delete... nothing? Do you even know what you’re doing?");
+            return;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Huh? Trying to erase something that’s not even there? That’s cute.");
+            return;
+        } catch (RuntimeException e) {
+            System.out.println("Okay, what’s this? Are we speaking in code now?");
+            return;
+        }
+        String[] split = line.split(" ", MIN_WORD_LEN);
+        int numberToDelete = Integer.parseInt(split[1]);
+        int indexToDelete = numberToDelete - 1;
+        Task task = taskList.get(indexToDelete);
+        taskList.remove(indexToDelete);
+        Printer.printDeleteResult(taskList, task);
+    }
+
+    public static void addTask(Task task) {
+        taskList.add(task);
     }
 }
