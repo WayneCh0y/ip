@@ -57,6 +57,8 @@ public class TaskManager {
             System.out.println("A deadline without a description? Is this a secret mission?");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Hey hey~! Don't forget to set the deadline okay?");
+        } catch (IllegalArgumentException e) {
+            System.out.println("You're almost there! Just tweak that date to yyyy-MM-dd.");
         }
     }
 
