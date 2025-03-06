@@ -122,6 +122,23 @@ public class TaskManager {
         }
     }
 
+    public static void find(String command) {
+        try {
+            Printer.printLine();
+            String keyword = Parser.getKeyword(command);
+            Printer.printFindResult();
+            for (Task tasks : taskList) {
+                String taskDescription = tasks.getDescription();
+                if (taskDescription.contains(keyword)) {
+                    Printer.printEntry(tasks);
+                }
+            }
+            Printer.printLine();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("My bad, I totally spaced out. What was that again?");
+        }
+    }
+
     public static void addTask(Task task) {
         taskList.add(task);
     }

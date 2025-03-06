@@ -83,6 +83,10 @@ public class Printer {
         Printer.printLine();
     }
 
+    public static void printFindResult() {
+        System.out.println("Boom! Found your matching tasks.");
+    }
+
     public static void printLoadingError() {
         System.out.println("Hah, even I can't load this file? Must be cursed!");
     }
