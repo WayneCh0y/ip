@@ -24,7 +24,11 @@ public class Printer {
     }
 
     public static void printIndexNumber(int index) {
-        System.out.print((index + 1) + ". ");
+        System.out.print(getIndexNumber(index) + ". ");
+    }
+
+    private static int getIndexNumber(int index) {
+        return index + 1;
     }
 
     public static void printEntry(Task task) {
@@ -72,11 +76,18 @@ public class Printer {
     }
 
     public static void printDeleteResult(List<Task> taskList, Task task) {
-        int index = 0;
         Printer.printLine();
         System.out.println("Ah, I see what you did there! Was that a sneaky Gojo-style move to make the task disappear?");
         printEntry(task);
         printListSize(taskList.size());
         Printer.printLine();
+    }
+
+    public static void printLoadingError() {
+        System.out.println("Hah, even I can't load this file? Must be cursed!");
+    }
+
+    public static void printUnknownCommandMessage() {
+        System.out.println("OOPS~! You've officially confused even me! Try again, maybe with actual commands?");
     }
 }
