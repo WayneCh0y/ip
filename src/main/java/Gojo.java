@@ -24,7 +24,7 @@ public class Gojo {
         }
     }
 
-    private static void start() throws IOException {
+    private static void start() {
         Scanner in = new Scanner(System.in);
         Printer.chatbotGreeting();
 
