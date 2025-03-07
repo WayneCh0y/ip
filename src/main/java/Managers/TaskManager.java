@@ -177,13 +177,11 @@ public class TaskManager {
         }
     }
 
-<<<<<<< HEAD
     /**
-     * Adds a task to the task list.
+     * Searches for tasks in the task list that contain the specified keyword.
      *
-     * @param task The task to be added.
+     * @param command The user input containing the keyword to search for.
      */
-=======
     public static void find(String command) {
         try {
             Printer.printLine();
@@ -200,8 +198,11 @@ public class TaskManager {
             System.out.println("My bad, I totally spaced out. What was that again?");
         }
     }
-
->>>>>>> branch-Level-9
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public static void addTask(Task task) {
         taskList.add(task);
     }

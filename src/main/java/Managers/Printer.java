@@ -145,16 +145,16 @@ public class Printer {
         Printer.printLine();
     }
 
-<<<<<<< HEAD
     /**
-     * Prints an error message when a file loading issue occurs.
+     * Prints a message indicating that matching tasks have been found.
      */
-=======
     public static void printFindResult() {
         System.out.println("Boom! Found your matching tasks.");
     }
 
->>>>>>> branch-Level-9
+    /**
+     * Prints an error message when a file loading issue occurs.
+     */
     public static void printLoadingError() {
         System.out.println("Hah, even I can't load this file? Must be cursed!");
     }
