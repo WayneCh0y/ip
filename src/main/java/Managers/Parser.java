@@ -5,6 +5,7 @@ import Commands.DeadlineCommand;
 import Commands.DeleteCommand;
 import Commands.EventCommand;
 import Commands.ExitCommand;
+import Commands.FindCommand;
 import Commands.ListCommand;
 import Commands.MarkCommand;
 import Commands.TodoCommand;
@@ -31,12 +32,25 @@ public class Parser {
     private static final int NUMBER_TO_INDEX_OFFSET = 1;
     private static final int MINIMUM_LIST_SIZE = 0;
 
+<<<<<<< HEAD
     /**
      * Extracts the task type from the user's input command.
      *
      * @param command The full command string.
      * @return The first word of the command, representing the task type.
      */
+=======
+    private static final String CASE_BYE = "bye";
+    private static final String CASE_LIST = "list";
+    private static final String CASE_TODO = "todo";
+    private static final String CASE_DEADLINE = "deadline";
+    private static final String CASE_EVENT = "event";
+    private static final String CASE_MARK = "mark";
+    private static final String CASE_UNMARK = "unmark";
+    private static final String CASE_DELETE = "delete";
+    private static final String CASE_FIND = "find";
+
+>>>>>>> branch-Level-9
     public static String getTaskType(String command) {
         return (command.split(SPACE_REGEX, SPLIT_SUBSTRINGS))[TASK_TYPE_INDEX];
     }
@@ -193,31 +207,40 @@ public class Parser {
         return numberToDelete - NUMBER_TO_INDEX_OFFSET;
     }
 
+<<<<<<< HEAD
     /**
      * Parses a user command and returns the corresponding Command object.
      *
      * @param input The full command string.
      * @return The corresponding Command object.
      */
+=======
+    public static String getKeyword(String command) {
+        return command.split(SPACE_REGEX, SPLIT_SUBSTRINGS)[TASK_COMMAND_INDEX];
+    }
+
+>>>>>>> branch-Level-9
     public static Command parseCommand(String input) {
         String taskType = getTaskType(input);
         switch (taskType) {
-        case "bye":
+        case CASE_BYE:
             return new ExitCommand();
-        case "list":
+        case CASE_LIST:
             return new ListCommand();
-        case "todo":
+        case CASE_TODO:
             return new TodoCommand(input);
-        case "deadline":
+        case CASE_DEADLINE:
             return new DeadlineCommand(input);
-        case "event":
+        case CASE_EVENT:
             return new EventCommand(input);
-        case "mark":
+        case CASE_MARK:
             return new MarkCommand(input);
-        case "unmark":
+        case CASE_UNMARK:
             return new UnmarkCommand(input);
-        case "delete":
+        case CASE_DELETE:
             return new DeleteCommand(input);
+        case CASE_FIND:
+            return new FindCommand(input);
         default:
             return new UnknownCommand();
         }
