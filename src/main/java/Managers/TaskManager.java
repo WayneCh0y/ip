@@ -9,6 +9,9 @@ import TaskItems.Todo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages a list of tasks, providing functionalities to add, remove, and modify tasks.
+ */
 public class TaskManager {
     private static List<Task> taskList;
 
@@ -17,26 +20,53 @@ public class TaskManager {
     private static final int EVENT_FROM_INDEX = 1;
     private static final int EVENT_TO_INDEX = 2;
 
+    /**
+     * Constructs a new TaskManager with an empty task list.
+     */
     public TaskManager() {
         taskList = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the number of tasks currently in the list.
+     *
+     * @return The size of the task list.
+     */
     public static int getListSize() {
         return taskList.size();
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public static List<Task> getTaskList() {
         return taskList;
     }
 
+    /**
+     * Prints all tasks currently in the list.
+     */
     public static void printTaskList() {
         Printer.printTaskList(taskList);
     }
 
+    /**
+     * Retrieves the completion status of a task at a specified index.
+     *
+     * @param index The index of the task.
+     * @return {@code true} if the task is marked as done, {@code false} otherwise.
+     */
     public static boolean getIndexStatus(int index) {
         return taskList.get(index).getStatus();
     }
 
+    /**
+     * Adds a new Todo task to the list.
+     *
+     * @param command The user input command.
+     */
     public static void todo(String command) {
         try {
             Task task = new Todo(Parser.getTodo(command));
@@ -47,6 +77,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a new Deadline task to the list.
+     *
+     * @param command The user input command containing the task description and deadline.
+     */
     public static void deadline(String command) {
         try {
             String[] deadlineSpecifics = Parser.getDeadline(command);
@@ -62,6 +97,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a new Event task to the list.
+     *
+     * @param command The user input command containing the task description and event timeline.
+     */
     public static void event(String command) {
         try {
             String[] eventSpecifics = Parser.getEvent(command);
@@ -75,6 +115,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param command The user input command containing the index of the task to be marked.
+     */
     public static void mark(String command) {
         try {
             int indexToMark = Parser.getNumberToMark(command);
@@ -91,6 +136,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Unmarks a task as based on user input.
+     *
+     * @param command The user input command containing the index of the task to be unmarked.
+     */
     public static void unmark(String command) {
         try {
             int indexToUnmark = Parser.getNumberToUnmark(command);
@@ -107,6 +157,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Deletes a task from the list based on user input.
+     *
+     * @param command The user input command containing the index of the task to be deleted.
+     */
     public static void delete(String command) {
         try {
             int indexToDelete = Parser.getNumberToDelete(command);
@@ -122,6 +177,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Searches for tasks in the task list that contain the specified keyword.
+     *
+     * @param command The user input containing the keyword to search for.
+     */
     public static void find(String command) {
         try {
             Printer.printLine();
@@ -138,7 +198,11 @@ public class TaskManager {
             System.out.println("My bad, I totally spaced out. What was that again?");
         }
     }
-
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public static void addTask(Task task) {
         taskList.add(task);
     }

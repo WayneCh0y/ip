@@ -13,6 +13,9 @@ import Commands.UnknownCommand;
 import Commands.UnmarkCommand;
 import Managers.Exceptions.IllegalCommandException;
 
+/**
+ * Parses user commands and extracts relevant task information.
+ */
 public class Parser {
     private static final int TASK_TYPE_INDEX = 0;
     private static final int TASK_COMMAND_INDEX = 1;
@@ -39,14 +42,33 @@ public class Parser {
     private static final String CASE_DELETE = "delete";
     private static final String CASE_FIND = "find";
 
+    /**
+     * Extracts the task type from the user's input command.
+     *
+     * @param command The full command string.
+     * @return The first word of the command, representing the task type.
+     */
     public static String getTaskType(String command) {
         return (command.split(SPACE_REGEX, SPLIT_SUBSTRINGS))[TASK_TYPE_INDEX];
     }
 
+    /**
+     * Extracts the description for a Todo task.
+     *
+     * @param command The full command string.
+     * @return The extracted Todo description.
+     */
     public static String getTodo(String command) {
         return command.split(SPACE_REGEX, SPLIT_SUBSTRINGS)[TASK_COMMAND_INDEX];
     }
 
+    /**
+     * Extracts details for a Deadline task.
+     *
+     * @param command The full command string.
+     * @return A string array containing the task description and deadline by.
+     * @throws IllegalCommandException If the command format is invalid.
+     */
     public static String[] getDeadline(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
@@ -64,6 +86,13 @@ public class Parser {
         return deadlineTask;
     }
 
+    /**
+     * Extracts details for an Event task.
+     *
+     * @param command The full command string.
+     * @return A string array containing the task description, start, and end times.
+     * @throws IllegalCommandException If the command format is invalid.
+     */
     public static String[] getEvent(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
@@ -81,6 +110,16 @@ public class Parser {
         return eventTask;
     }
 
+    /**
+     * Extracts the task index from the user input command to mark a task.
+     *
+     * @param command The full user command.
+     * @return The zero-based index of the task in the task list.
+     * @throws IllegalCommandException If the command format is invalid.
+     * @throws IndexOutOfBoundsException If the task number is out of range.
+     * @throws RuntimeException If the task number is not an integer.
+     * @throws Error If the task is already marked as done.
+     */
     public static int getNumberToMark(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
@@ -103,6 +142,16 @@ public class Parser {
         return indexToMark;
     }
 
+    /**
+     * Extracts the task index from the user input command to unmark a task.
+     *
+     * @param command The full user command.
+     * @return The zero-based index of the task in the task list.
+     * @throws IllegalCommandException If the command format is invalid.
+     * @throws IndexOutOfBoundsException If the task number is out of range.
+     * @throws RuntimeException If the task number is not an integer.
+     * @throws Error If the task is already unmarked.
+     */
     public static int getNumberToUnmark(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
@@ -125,6 +174,15 @@ public class Parser {
         return indexToUnmark;
     }
 
+    /**
+     * Extracts the task index from the user input command to delete a task.
+     *
+     * @param command The full user command.
+     * @return The zero-based index of the task in the task list.
+     * @throws IllegalCommandException If the command format is invalid.
+     * @throws IndexOutOfBoundsException If the task number is out of range.
+     * @throws RuntimeException If the task number is not an integer.
+     */
     public static int getNumberToDelete(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
@@ -146,10 +204,22 @@ public class Parser {
         return numberToDelete - NUMBER_TO_INDEX_OFFSET;
     }
 
+    /**
+     * Extracts the keyword from the given command.
+     *
+     * @param command The user input command containing the keyword.
+     * @return The extracted keyword from the command.
+     */
     public static String getKeyword(String command) {
         return command.split(SPACE_REGEX, SPLIT_SUBSTRINGS)[TASK_COMMAND_INDEX];
     }
 
+    /**
+     * Parses a user command and returns the corresponding Command object.
+     *
+     * @param input The full command string.
+     * @return The corresponding Command object.
+     */
     public static Command parseCommand(String input) {
         String taskType = getTaskType(input);
         switch (taskType) {
