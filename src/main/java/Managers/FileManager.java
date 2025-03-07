@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles reading from and writing to the task storage file.
+ * Responsible for saving and loading tasks to/from a file.
+ */
 public class FileManager {
     private static String filePath;
 
@@ -33,14 +37,32 @@ public class FileManager {
 
     private static final String DIRECTORY_NAME = "data";
 
+    /**
+     * Constructs a FileManager with the specified file path.
+     *
+     * @param path The file path where tasks data will be stored.
+     */
     public FileManager(String path) {
         this.filePath = path;
     }
 
+    /**
+     * Converts a Task object into a formatted string for saving.
+     *
+     * @param task The task to be saved.
+     * @return A formatted string representing the task, status and other descriptions.
+     */
     public static String toSaveAsString(Task task) {
         return task.getTaskType() + "|" + task.getSaveDescription() + "|" + task.getStatus();
     }
 
+    /**
+     * Loads tasks from the storage file into a TaskManager.
+     * If the file does not exist, returns a new empty TaskManager.
+     *
+     * @return A TaskManager containing loaded tasks.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public static TaskManager load() throws IOException {
         File f = new File(filePath);
         if (!f.exists()) {
@@ -90,6 +112,13 @@ public class FileManager {
         return taskManager;
     }
 
+    /**
+     * Saves the list of tasks to the file.
+     * Creates a new directory if it does not exist.
+     *
+     * @param taskList The list of tasks to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     public static void save(List<Task> taskList) throws IOException {
         File directory = new File(DIRECTORY_NAME);
         if (!directory.exists()) {
