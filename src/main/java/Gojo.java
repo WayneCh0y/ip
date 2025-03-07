@@ -33,13 +33,14 @@ public class Gojo {
         }
     }
 
+
     /**
      * Starts the chatbot, continuously taking user input and executing commands.
      * Terminates when the user inputs an exit command.
      *
      * @throws IOException If an error occurs during file operations.
      */
-    private static void start() throws IOException {
+    private static void start() {
         Scanner in = new Scanner(System.in);
         Printer.chatbotGreeting();
 
