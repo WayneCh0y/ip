@@ -165,6 +165,7 @@ Bye! Don't miss me too much, okay?
 ```
 
 # Command Summary
+
 | Action     | Format, Example                                                                                            |
 |------------|------------------------------------------------------------------------------------------------------------|
 | `deadline` | `deadline <task description> /by <YYYY-MM-DD>`<br/> _e.g._ `deadline Finish report /by 2025-03-10`         |
