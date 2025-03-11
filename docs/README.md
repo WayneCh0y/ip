@@ -2,6 +2,26 @@
 
 Meet **_Gojo_**, the ultimate task manager inspired by the strongest sorcerer himself! Whether you're organizing deadlines, scheduling events, or keeping track of to-dos, Gojo ensures your productivity stays as sharp as his Infinity.
 
+1. [Quick start](#quick-start)
+2. [Features](#features-) 
+   - [Adding Tasks](#adding-tasks)
+        - Deadlines
+        - To-Dos
+        - Events
+   - [Managing Tasks](#managing-tasks)
+        - Mark
+        - Unmark
+        - List
+        - Delete
+3. [Finding Tasks](#finding-tasks)
+4. [Saving](#saving)
+5. [Exiting](#exiting)
+6. [Command Summary](#command-summary)
+
+# Quick start
+1. Ensure you have Java `17` installed in your computer
+
+# Features 
 ## Adding Tasks
 Gojo Chatbot makes task management effortless by allowing you to add different types of tasks to your list. Whether it’s a simple to-do, a deadline, or an event, Gojo keeps everything organized so you can focus on what truly matters.
 
@@ -112,7 +132,7 @@ Ah, I see what you did there! Was that a sneaky Gojo-style move to make the task
 Now you have 2 tasks in the list.
 ```
 
-## Finding
+## Finding Tasks
 
 Struggling to find a specific task in your list? The Find feature lets you quickly search for tasks using keywords. Gojo will locate and display all matching tasks with the specified keywords!
 
@@ -130,3 +150,28 @@ Boom! Found your matching tasks.
 2. [E][ ] Attend meeting (from: Mar 20 2025 to: Mar 21 2025)  
 4. [T][X] Prepare for team meeting  
 ```
+## Saving
+Gojo saves the data automatically after exiting the program, there is no need to save manually.
+
+## Exiting
+Exits the program
+
+_command:_ `bye`
+
+_expected output:_
+``` 
+Bye! Don't miss me too much, okay?
+```
+
+# Command Summary
+| Action     | Format, Example                                                                                            |
+|------------|------------------------------------------------------------------------------------------------------------|
+| `deadline` | `deadline <task description> /by <YYYY-MM-DD>`<br/> _e.g._ `deadline Finish report /by 2025-03-10`         |
+| `todo`     | `todo <task description>`<br/> _e.g._ `todo Buy groceries`                                                 |
+| `event`    | `event <task description> /from <start> /to <end>`<br/> _e.g._ `event Project meeting /from 10AM /to 12PM` |
+| `mark`     | `mark <task number>`<br/> _e.g._ `mark 2`                                                                  |
+| `unmark`   | `unmark <task number>`<br/> _e.g._ `unmark 2`                                                              |
+| `list`     | `list`                                                                                                     |
+| `delete`   | `delete <task number>`<br/> _e.g._ `delete 2`                                                              |
+| `find`     | `find <keyword>`<br/> _e.g._ `find meeting`                                                                |
+| `bye`      | `bye`                                                                                                      |
