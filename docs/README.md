@@ -18,6 +18,7 @@ Meet **_Gojo_**, the ultimate task manager inspired by the strongest sorcerer hi
 5. [Exiting](#exiting)
 6. [Command Summary](#command-summary)
 
+
 # Quick start
 1. Ensure you have Java `17` installed in your computer
 
