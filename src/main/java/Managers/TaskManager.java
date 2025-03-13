@@ -31,7 +31,7 @@ public class TaskManager {
             "Gojo Satoru is the first sorcerer in 400 years to inherit both the Six Eyes and Limitless.",
             "His favorite food is sweets, especially mochi and desserts!",
             "Gojo wears a blindfold or dark sunglasses to manage the overwhelming power of the Six Eyes.",
-            "He considers himself 'the strongest'—and he's not wrong!",
+            "He considers himself 'the strongest' - and he's not wrong!",
             "Despite his carefree attitude, Gojo deeply cares for his students and wants to reform the Jujutsu world.",
             "Gojo's Infinity ability makes him untouchable by normal means.",
             "His Domain Expansion, Unlimited Void, overwhelms opponents by flooding them with infinite information.",
