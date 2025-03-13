@@ -1,5 +1,7 @@
 package Commands;
 
+import Managers.Exceptions.IllegalCommandException;
+
 import java.io.IOException;
 
 /**

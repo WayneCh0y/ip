@@ -43,7 +43,7 @@ public class FileManager {
      * @param path The file path where tasks data will be stored.
      */
     public FileManager(String path) {
-        this.filePath = path;
+        filePath = path;
     }
 
     /**

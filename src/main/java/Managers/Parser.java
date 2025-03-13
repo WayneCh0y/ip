@@ -6,6 +6,8 @@ import Commands.DeleteCommand;
 import Commands.EventCommand;
 import Commands.ExitCommand;
 import Commands.FindCommand;
+import Commands.GojoCommand;
+import Commands.HelpCommand;
 import Commands.ListCommand;
 import Commands.MarkCommand;
 import Commands.TodoCommand;
@@ -41,6 +43,14 @@ public class Parser {
     private static final String CASE_UNMARK = "unmark";
     private static final String CASE_DELETE = "delete";
     private static final String CASE_FIND = "find";
+    private static final String CASE_GOJO = "gojo";
+    private static final String HELP = "help";
+
+    private static final String BY = "/by";
+    private static final String FROM = "/from";
+    private static final String TO = "/to";
+
+
 
     /**
      * Extracts the task type from the user's input command.
@@ -71,8 +81,19 @@ public class Parser {
      */
     public static String[] getDeadline(String command) throws IllegalCommandException {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
-
         if (split.length < SPLIT_SUBSTRINGS) {
+            throw new IllegalCommandException();
+        }
+
+        boolean foundBy = false;
+        String[] commandPrompts = split[TASK_COMMAND_INDEX].split(SPACE_REGEX);
+        for (String words : commandPrompts) {
+            if (words.equals(BY)) {
+                foundBy = true;
+                break;
+            }
+        }
+        if (!foundBy) {
             throw new IllegalCommandException();
         }
 
@@ -97,6 +118,24 @@ public class Parser {
         String[] split = command.split(SPACE_REGEX, SPLIT_SUBSTRINGS);
 
         if (split.length < SPLIT_SUBSTRINGS) {
+            throw new IllegalCommandException();
+        }
+
+        boolean foundFrom = false;
+        boolean foundTo = false;
+        String[] commandPrompts = split[TASK_COMMAND_INDEX].split(SPACE_REGEX);
+        for (String words : commandPrompts) {
+            if (words.equals(FROM)) {
+                foundFrom = true;
+            }
+            if (words.equals(TO)) {
+                foundTo = true;
+            }
+            if (foundFrom && foundTo) {
+                break;
+            }
+        }
+        if (!foundFrom || !foundTo) {
             throw new IllegalCommandException();
         }
 
@@ -221,6 +260,7 @@ public class Parser {
      * @return The corresponding Command object.
      */
     public static Command parseCommand(String input) {
+
         String taskType = getTaskType(input);
         switch (taskType) {
         case CASE_BYE:
@@ -241,6 +281,10 @@ public class Parser {
             return new DeleteCommand(input);
         case CASE_FIND:
             return new FindCommand(input);
+        case CASE_GOJO:
+            return new GojoCommand();
+        case HELP:
+            return new HelpCommand();
         default:
             return new UnknownCommand();
         }

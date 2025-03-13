@@ -16,7 +16,10 @@ Meet **_Gojo_**, the ultimate task manager inspired by the strongest sorcerer hi
 3. [Finding Tasks](#finding-tasks)
 4. [Saving](#saving)
 5. [Exiting](#exiting)
-6. [Command Summary](#command-summary)
+6. [Miscellaneous](#miscellaneous)
+   - [Gojo](#gojo) 
+   - [Help](#help)
+7. [Command Summary](#command-summary)
 
 
 # Quick start
@@ -164,16 +167,50 @@ _expected output:_
 Bye! Don't miss me too much, okay?
 ```
 
+# Miscellaneous
+## Gojo
+Outputs a random fact about Gojo Satoru.
+
+_command:_ `gojo`
+
+_expected output:_
+``` 
+He considers himself 'the strongest'—and he's not wrong!
+```
+
+## Help
+Outputs all commands the chatbot can take in.
+
+_command:_ `help`
+
+_expected output:_
+``` 
+1. list (Shows the current list of items)
+2. todo <task description> (Adds a todo task)
+3. deadline <task description> /by <YYYY-MM-DD> (Adds a deadline task)
+4. event <task description> /from <start> /to <end> (Adds an event task)
+5. mark <list index> (Marks a task)
+6. unmark <list index> (Unmarks a task)
+7. delete <list index> (Deletes a task)
+8. find <keyword> (Finds a task with the specified keyword)
+9. bye (Exits Gojo chatbot)
+10. gojo (Try me)
+11. help (Lists out all possible commands)
+```
+
 # Command Summary
 
-| Action     | Format, Example                                                                                            |
+| Action     | Format & Example                                                                                           |
 |------------|------------------------------------------------------------------------------------------------------------|
-| `deadline` | `deadline <task description> /by <YYYY-MM-DD>`<br/> _e.g._ `deadline Finish report /by 2025-03-10`         |
-| `todo`     | `todo <task description>`<br/> _e.g._ `todo Buy groceries`                                                 |
-| `event`    | `event <task description> /from <start> /to <end>`<br/> _e.g._ `event Project meeting /from 10AM /to 12PM` |
-| `mark`     | `mark <task number>`<br/> _e.g._ `mark 2`                                                                  |
-| `unmark`   | `unmark <task number>`<br/> _e.g._ `unmark 2`                                                              |
+| `deadline` | `deadline <task description> /by <YYYY-MM-DD>` <br> _e.g._ `deadline Finish report /by 2025-03-10`         |
+| `todo`     | `todo <task description>` <br> _e.g._ `todo Buy groceries`                                                 |
+| `event`    | `event <task description> /from <start> /to <end>` <br> _e.g._ `event Project meeting /from 10AM /to 12PM` |
+| `mark`     | `mark <task number>` <br> _e.g._ `mark 2`                                                                  |
+| `unmark`   | `unmark <task number>` <br> _e.g._ `unmark 2`                                                              |
 | `list`     | `list`                                                                                                     |
-| `delete`   | `delete <task number>`<br/> _e.g._ `delete 2`                                                              |
-| `find`     | `find <keyword>`<br/> _e.g._ `find meeting`                                                                |
+| `delete`   | `delete <task number>` <br> _e.g._ `delete 2`                                                              |
+| `find`     | `find <keyword>` <br> _e.g._ `find meeting`                                                                |
 | `bye`      | `bye`                                                                                                      |
+| `gojo`     | `gojo`                                                                                                     |
+| `help`     | `help`                                                                                                     |
+

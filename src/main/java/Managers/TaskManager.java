@@ -8,6 +8,7 @@ import TaskItems.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Manages a list of tasks, providing functionalities to add, remove, and modify tasks.
@@ -19,6 +20,24 @@ public class TaskManager {
     private static final int DEADLINE_BY_INDEX = 1;
     private static final int EVENT_FROM_INDEX = 1;
     private static final int EVENT_TO_INDEX = 2;
+
+    private static final int ILLEGAL_COMMAND_INDEX = 0;
+    private static final int OUT_OF_BOUNDS_INDEX = 1;
+    private static final int ILLEGAL_ARGUMENT_INDEX = 2;
+    private static final int ERROR_INDEX = 3;
+    private static final int RUNTIME_EXCEPTION_INDEX = 4;
+
+    private static final String[] FUN_FACTS = {
+            "Gojo Satoru is the first sorcerer in 400 years to inherit both the Six Eyes and Limitless.",
+            "His favorite food is sweets, especially mochi and desserts!",
+            "Gojo wears a blindfold or dark sunglasses to manage the overwhelming power of the Six Eyes.",
+            "He considers himself 'the strongest'—and he's not wrong!",
+            "Despite his carefree attitude, Gojo deeply cares for his students and wants to reform the Jujutsu world.",
+            "Gojo's Infinity ability makes him untouchable by normal means.",
+            "His Domain Expansion, Unlimited Void, overwhelms opponents by flooding them with infinite information.",
+            "He has an insane sense of fashion and is often seen wearing trendy clothes.",
+            "Gojo is a fan of Digimon",
+    };
 
     /**
      * Constructs a new TaskManager with an empty task list.
@@ -64,59 +83,92 @@ public class TaskManager {
 
     /**
      * Adds a new Todo task to the list.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command.
      */
     public static void todo(String command) {
         try {
+            if (Parser.getTodo(command).trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+
             Task task = new Todo(Parser.getTodo(command));
             taskList.add(task);
             Printer.printTaskAdded(getListSize(), task);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Oops~! Looks like you forgot something important. A Todo without a description?");
+            Printer.printTodoExceptionMessage();
         }
     }
 
     /**
      * Adds a new Deadline task to the list.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command containing the task description and deadline.
      */
     public static void deadline(String command) {
         try {
+            if (Parser.getDeadline(command)[TASK_DESCRIPTION_INDEX].trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+            if (Parser.getDeadline(command)[DEADLINE_BY_INDEX].trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+
             String[] deadlineSpecifics = Parser.getDeadline(command);
-            Task deadlineTask = new Deadline(deadlineSpecifics[TASK_DESCRIPTION_INDEX], deadlineSpecifics[DEADLINE_BY_INDEX]);
+            Task deadlineTask = new Deadline(deadlineSpecifics[TASK_DESCRIPTION_INDEX],
+                    deadlineSpecifics[DEADLINE_BY_INDEX]);
             taskList.add(deadlineTask);
             Printer.printTaskAdded(getListSize(), deadlineTask);
         } catch (IllegalCommandException e) {
-            System.out.println("A deadline without a description? Is this a secret mission?");
+            Printer.printDeadlineExceptionMessage(ILLEGAL_COMMAND_INDEX);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Hey hey~! Don't forget to set the deadline okay?");
+            Printer.printDeadlineExceptionMessage(OUT_OF_BOUNDS_INDEX);
         } catch (IllegalArgumentException e) {
-            System.out.println("You're almost there! Just tweak that date to yyyy-MM-dd.");
+            Printer.printDeadlineExceptionMessage(ILLEGAL_ARGUMENT_INDEX);
         }
     }
 
     /**
      * Adds a new Event task to the list.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command containing the task description and event timeline.
      */
     public static void event(String command) {
         try {
+            if (Parser.getEvent(command)[TASK_DESCRIPTION_INDEX].trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+            if (Parser.getEvent(command)[EVENT_FROM_INDEX].trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+            if (Parser.getEvent(command)[EVENT_TO_INDEX].trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
+
             String[] eventSpecifics = Parser.getEvent(command);
-            Task eventTask = new Event(eventSpecifics[TASK_DESCRIPTION_INDEX], eventSpecifics[EVENT_FROM_INDEX], eventSpecifics[EVENT_TO_INDEX]);
+            Task eventTask = new Event(eventSpecifics[TASK_DESCRIPTION_INDEX],
+                    eventSpecifics[EVENT_FROM_INDEX], eventSpecifics[EVENT_TO_INDEX]);
             taskList.add(eventTask);
             Printer.printTaskAdded(getListSize(), eventTask);
-        } catch(IllegalCommandException e) {
-            System.out.println("What is this? An event with no details?");
+        } catch (IllegalCommandException e) {
+            Printer.printEventExceptionMessage(ILLEGAL_COMMAND_INDEX);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Is this event happening today, tomorrow, or in the next century?");
+            Printer.printEventExceptionMessage(OUT_OF_BOUNDS_INDEX);
         }
     }
 
     /**
      * Marks a task as done based on user input.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command containing the index of the task to be marked.
      */
@@ -126,18 +178,19 @@ public class TaskManager {
             taskList.get(indexToMark).markAsDone();
             Printer.printMarkResult(taskList.get(indexToMark));
         } catch (IllegalCommandException e) {
-            System.out.println("Uh-oh~! You want me to mark something as done, but... what exactly?");
+            Printer.printMarkExceptionMessage(ILLEGAL_COMMAND_INDEX);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Huh? That task is not even on the list! Are you seeing things?");
+            Printer.printMarkExceptionMessage(OUT_OF_BOUNDS_INDEX);
         } catch (Error e) {
-            System.out.println("Eh? That task is already done! Trying to get extra credit?");
+            Printer.printMarkExceptionMessage(ERROR_INDEX);
         } catch (RuntimeException e) {
-            System.out.println("Uh... am i supposed to use limitless to figure this out?");
+            Printer.printMarkExceptionMessage(RUNTIME_EXCEPTION_INDEX);
         }
     }
 
     /**
      * Unmarks a task as based on user input.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command containing the index of the task to be unmarked.
      */
@@ -147,18 +200,19 @@ public class TaskManager {
             taskList.get(indexToUnmark).unmarkAsDone();
             Printer.printUnmarkResult(taskList.get(indexToUnmark));
         } catch (IllegalCommandException e) {
-            System.out.println("Woah there~! What am I supposed to unmark here?");
+            Printer.printUnmarkExceptionMessage(ILLEGAL_COMMAND_INDEX);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Huh? That task is not even on the list! Are you seeing things?");
+            Printer.printUnmarkExceptionMessage(OUT_OF_BOUNDS_INDEX);
         } catch (Error e) {
-            System.out.println("Eh? That task isn't even done! Trying to reverse nothing now?");
+            Printer.printUnmarkExceptionMessage(ERROR_INDEX);
         } catch (RuntimeException e) {
-            System.out.println("Huh? You want me to unmark... whatever that is?");
+            Printer.printUnmarkExceptionMessage(RUNTIME_EXCEPTION_INDEX);
         }
     }
 
     /**
      * Deletes a task from the list based on user input.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input command containing the index of the task to be deleted.
      */
@@ -169,21 +223,26 @@ public class TaskManager {
             taskList.remove(indexToDelete);
             Printer.printDeleteResult(taskList, task);
         } catch (IllegalCommandException e) {
-            System.out.println("Are you trying to delete... nothing? Do you even know what you’re doing?");
+            Printer.printDeleteExceptionMessage(ILLEGAL_COMMAND_INDEX);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Huh? Trying to erase something that’s not even there? That’s cute.");
+            Printer.printDeleteExceptionMessage(OUT_OF_BOUNDS_INDEX);
         } catch (RuntimeException e) {
-            System.out.println("Okay, what’s this? Are we speaking in code now?");
+            Printer.printDeleteExceptionMessage(RUNTIME_EXCEPTION_INDEX);
         }
     }
 
     /**
      * Searches for tasks in the task list that contain the specified keyword.
+     * If the command contains an empty description, an error message is printed.
      *
      * @param command The user input containing the keyword to search for.
      */
     public static void find(String command) {
         try {
+            if (Parser.getKeyword(command).trim().isEmpty()) {
+                Printer.printEmptyCommandMessage();
+                return;
+            }
             Printer.printLine();
             String keyword = Parser.getKeyword(command);
             Printer.printFindResult();
@@ -195,9 +254,35 @@ public class TaskManager {
             }
             Printer.printLine();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("My bad, I totally spaced out. What was that again?");
+            Printer.printFindExceptionMessage();
         }
     }
+
+    /**
+     * Generates and returns a random fun fact about Gojo Satoru.
+     *
+     * @return A randomly selected fun fact about Gojo.
+     */
+    private static String getRandomGojoFact() {
+        Random random = new Random();
+        int index = random.nextInt(FUN_FACTS.length);
+        return FUN_FACTS[index];
+    }
+
+    /**
+     * Prints a random fun fact about Gojo Satoru.
+     */
+    public static void funFact() {
+        Printer.printFunFact(getRandomGojoFact());
+    }
+
+    /**
+     * Prints the help menu for the chatbot.
+     */
+    public static void help() {
+        Printer.printHelp();
+    }
+
     /**
      * Adds a task to the task list.
      *
@@ -206,4 +291,5 @@ public class TaskManager {
     public static void addTask(Task task) {
         taskList.add(task);
     }
+
 }

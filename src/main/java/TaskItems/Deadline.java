@@ -1,5 +1,6 @@
 package TaskItems;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,6 +45,7 @@ public class Deadline extends Task {
         }
     }
 
+
     /**
      * Returns the task type identifier for a Deadline task.
      *
@@ -79,6 +81,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return TASK_TYPE + super.toString() + " (by: " + date.format(OUTPUT_FORMATTER) + ")";
+        return TASK_TYPE + super.toString() + " (by: " + (date != null ? date.format(OUTPUT_FORMATTER) : by) + ")";
     }
 }

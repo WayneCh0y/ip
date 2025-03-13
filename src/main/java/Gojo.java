@@ -12,9 +12,10 @@ import java.io.IOException;
  * The main chatbot class that handles user interactions,
  */
 public class Gojo {
-    private FileManager fileManager;
-    private TaskManager taskManager;
-    private Printer printer;
+    public static final String FILEPATH = "data/Gojo.txt";
+
+    protected FileManager fileManager;
+    protected TaskManager taskManager;
 
     /**
      * Constructs the Gojo chatbot instance.
@@ -23,7 +24,6 @@ public class Gojo {
      * @param filepath The path to the file where tasks are stored.
      */
     public Gojo(String filepath) {
-        printer = new Printer();
         fileManager = new FileManager(filepath);
         try {
             taskManager = FileManager.load();
@@ -38,9 +38,8 @@ public class Gojo {
      * Starts the chatbot, continuously taking user input and executing commands.
      * Terminates when the user inputs an exit command.
      *
-     * @throws IOException If an error occurs during file operations.
      */
-    private static void start() {
+    private void start() {
         Scanner in = new Scanner(System.in);
         Printer.chatbotGreeting();
 
@@ -59,7 +58,7 @@ public class Gojo {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        new Gojo("data/Gojo.txt").start();
+    public static void main(String[] args) {
+        new Gojo(FILEPATH).start();
     }
 }
