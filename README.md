@@ -4,28 +4,33 @@ Meet **_Gojo_**, the ultimate task manager inspired by the strongest sorcerer hi
 
 1. [Quick start](#quick-start)
 2. [Features](#features-)
-   - [Adding Tasks](#adding-tasks)
-      - Deadlines
-      - To-Dos
-      - Events
-   - [Managing Tasks](#managing-tasks)
-      - Mark
-      - Unmark
-      - List
-      - Delete
+    - [Adding Tasks](#adding-tasks)
+        - Deadlines
+        - To-Dos
+        - Events
+    - [Managing Tasks](#managing-tasks)
+        - Mark
+        - Unmark
+        - List
+        - Delete
 3. [Finding Tasks](#finding-tasks)
 4. [Saving](#saving)
 5. [Exiting](#exiting)
 6. [Miscellaneous](#miscellaneous)
-   - [Gojo](#gojo)
-   - [Help](#help)
+    - [Gojo](#gojo)
+    - [Help](#help)
 7. [Command Summary](#command-summary)
 
 
 # Quick start
 1. Ensure you have Java `17` installed in your computer
+2. Download the **ip_Gojo.jar** file
+3. Copy the file a folder of choice.
+4. Open terminal, and navigate to the folder containing the jar file.
+5. run the command `java -jar ip_Gojo.jar` to run _**Gojo**_.
 
 # Features
+> **Note about command format:** Words that are in the angled brackets`< >` are parameters meant to be supplied by the user.
 ## Adding Tasks
 Gojo Chatbot makes task management effortless by allowing you to add different types of tasks to your list. Whether it’s a simple to-do, a deadline, or an event, Gojo keeps everything organized so you can focus on what truly matters.
 
